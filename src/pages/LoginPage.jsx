@@ -15,19 +15,15 @@ import {
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
 import { Link, useNavigate } from "react-router-dom"
 import api from "../apis/signUp"
-import { useState } from "react"
+import useInput from "../hooks/useInput"
 
 export default function LoginPage() {
   const navigate = useNavigate()
-  const [userInput, setUserInput] = useState({
+
+  const { userInput, onChange } = useInput({
     email: "",
     password: "",
   })
-
-  const onChange = (e) => {
-    const { name, value } = e.target
-    setUserInput({ ...userInput, [name]: value })
-  }
 
   const doLogin = async () => {
     try {
