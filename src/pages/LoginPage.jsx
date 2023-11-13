@@ -35,11 +35,12 @@ export default function LoginPage() {
 
       if (response.status === 201) {
         const data = response.data
+
         localStorage.setItem("accessToken", data.data.accessToken)
-        navigate("/home") // navigate 함수가 정의되어 있다고 가정
+        navigate("/home")
       }
     } catch (error) {
-      console.error("오류 발생:", error)
+      alert(error.response.data.message)
     }
   }
 
