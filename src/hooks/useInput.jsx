@@ -5,7 +5,7 @@ function useInput(initialValue) {
   const onChange = (e) => {
     const { name, value } = e.target
     setUserInput({ ...userInput, [name]: value })
-    console.log(userInput)
+    // console.log(userInput)
   }
   return { userInput, onChange }
 }
