@@ -6,6 +6,7 @@ const initialState = {
   categories: [],
   status: "idle",
   error: null,
+  selectedCategory: null,
 }
 
 export const fetchCategories = createAsyncThunk("categories/fetchCategories", async (storeId) => {
@@ -21,7 +22,12 @@ export const deleteCategoryAsync = createAsyncThunk("categories/deleteCategory",
 const categorySlice = createSlice({
   name: "categories",
   initialState,
-  reducers: {},
+  reducers: {
+    selectCategory: (state, action) => {
+      const selectedCategoryId = action.payload.id
+      state.selectedCategory = { ...state.categories.find((item) => item.id === selectedCategoryId) }
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchCategories.pending, (state) => {
       state.status = "loading"
@@ -41,4 +47,5 @@ const categorySlice = createSlice({
   },
 })
 
+export const { selectCategory } = categorySlice.actions
 export default categorySlice.reducer
