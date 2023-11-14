@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const createApi = axios.create({
+const itemCRUD = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL, // API 엔드포인트의 기본 URL
   headers: {
     "Content-Type": "application/json",
@@ -8,4 +8,4 @@ const createApi = axios.create({
   },
 })
 
-export default createApi
+export default itemCRUD
