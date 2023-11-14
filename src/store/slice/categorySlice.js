@@ -9,7 +9,7 @@ const initialState = {
 }
 
 export const fetchCategories = createAsyncThunk("categories/fetchCategories", async (storeId) => {
-  const response = await axios.get(`http://localhost:9090/api/v1/public/categories/all/${storeId}`)
+  const response = await itemCRUD.get(`/public/categories/all/${storeId}`)
   return response.data.data
 })
 
