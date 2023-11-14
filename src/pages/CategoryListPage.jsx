@@ -18,7 +18,12 @@ function CategoryListPage() {
       const data = response.data
       console.log(data)
     } catch (err) {
-      throw new Error(err)
+      if (err.response && err.response.status === 400) {
+        alert(err.response.data.message)
+      } else {
+        console.error("API request error:", err)
+        throw new Error(err)
+      }
     }
   }
 

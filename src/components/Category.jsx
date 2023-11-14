@@ -24,7 +24,11 @@ function Category({ storeId }) {
   return (
     <Stack>
       {categories.map((category) => (
-        <Button key={category.id} onClick={() => console.log(category.products)}>
+        <Button
+          sx={{ borderBottom: ".1px solid black", margin: "0 10px" }}
+          key={category.id}
+          onClick={() => console.log(category.products)}
+        >
           <p>{category.name}</p>
         </Button>
       ))}
