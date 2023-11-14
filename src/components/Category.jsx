@@ -8,14 +8,17 @@ function Category({ storeId }) {
   const { categories, status, error } = useSelector((state) => state.categories)
 
   const deleteCategory = async (categoryId) => {
-    try {
-      await dispatch(deleteCategoryAsync(categoryId))
-    } catch (err) {
-      if (err.response && err.response.status === 400) {
-        alert(err.response.data.message)
-      } else {
-        console.error("API request error:", err)
-        throw new Error(err)
+    const checkDelete = window.confirm("정말로 삭제하시겠습니까?")
+    if (checkDelete) {
+      try {
+        await dispatch(deleteCategoryAsync(categoryId))
+      } catch (err) {
+        if (err.response && err.response.status === 400) {
+          alert(err.response.data.message)
+        } else {
+          console.error("API request error:", err)
+          throw new Error(err)
+        }
       }
     }
   }
