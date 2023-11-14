@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchCategories } from "../store/slice/categorySlice"
-import { Box, Button, Grid } from "@mui/material"
+import { Box, Button, Grid, Stack } from "@mui/material"
 
 function Category({ storeId }) {
   const dispatch = useDispatch()
@@ -24,17 +24,16 @@ function Category({ storeId }) {
   }, [dispatch, storeId]) // categories 추가
 
   return (
-    <Box>
-      <Grid container>
-        <Grid item>
-          {categories.map((category) => (
-            <Button variant="outlined" size="large" key={category.id}>
-              <p>{category.name}</p>
-            </Button>
-          ))}
-        </Grid>
-      </Grid>
-    </Box>
+    <Stack>
+      {categories.map((category) => (
+        <Button
+          key={category.id}
+          onClick={() => console.log(category.products)}
+        >
+          <p>{category.name}</p>
+        </Button>
+      ))}
+    </Stack>
   )
 }
 
