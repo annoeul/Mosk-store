@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios from "axios"
+import itemCRUD from "../../apis/itemCRUD"
 
 const initialState = {
   categories: [],
@@ -7,15 +8,15 @@ const initialState = {
   error: null,
 }
 
-export const fetchCategories = createAsyncThunk(
-  "categories/fetchCategories",
-  async (storeId) => {
-    const response = await axios.get(
-      `http://localhost:9090/api/v1/public/categories/all/${storeId}`
-    )
-    return response.data.data
-  }
-)
+export const fetchCategories = createAsyncThunk("categories/fetchCategories", async (storeId) => {
+  const response = await axios.get(`http://localhost:9090/api/v1/public/categories/all/${storeId}`)
+  return response.data.data
+})
+
+export const deleteCategoryAsync = createAsyncThunk("categories/deleteCategory", async (categoryId) => {
+  const response = await itemCRUD.delete(`/categories/${categoryId}`)
+  return categoryId
+})
 
 const categorySlice = createSlice({
   name: "categories",
@@ -32,6 +33,10 @@ const categorySlice = createSlice({
     builder.addCase(fetchCategories.rejected, (state, action) => {
       state.status = "failed"
       state.error = action.error.message ?? null
+    })
+    builder.addCase(deleteCategoryAsync.fulfilled, (state, action) => {
+      state.status = "success"
+      state.categories = state.categories.filter((category) => category.id !== action.payload)
     })
   },
 })
