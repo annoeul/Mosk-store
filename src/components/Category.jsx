@@ -1,11 +1,11 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { deleteCategoryAsync, fetchCategories } from "../store/slice/categorySlice"
+import { deleteCategoryAsync, fetchCategories, selectCategory } from "../store/slice/categorySlice"
 import { Box, Button, Stack } from "@mui/material"
 
 function Category({ storeId }) {
   const dispatch = useDispatch()
-  const { categories, status, error } = useSelector((state) => state.categories)
+  const { categories } = useSelector((state) => state.categories)
 
   const deleteCategory = async (categoryId) => {
     const checkDelete = window.confirm("정말로 삭제하시겠습니까?")
@@ -21,6 +21,11 @@ function Category({ storeId }) {
         }
       }
     }
+  }
+
+  const handleCategoryClick = (categoryId) => {
+    // Dispatch the selectCategory action with the category ID
+    dispatch(selectCategory({ id: categoryId }))
   }
 
   useEffect(() => {
@@ -43,7 +48,7 @@ function Category({ storeId }) {
         <Box
           sx={{ borderBottom: ".1px solid black", margin: "10px 10px" }}
           key={category.id}
-          onClick={() => console.log(category.products)}
+          onClick={() => handleCategoryClick(category.id)}
         >
           <p>{category.name}</p>
           <Button onClick={() => deleteCategory(category.id)}>삭제</Button>
