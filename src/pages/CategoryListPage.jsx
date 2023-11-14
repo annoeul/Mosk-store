@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import Btn from "../components/Btn"
 import { Box, ButtonGroup, TextField } from "@mui/material"
 import Category from "../components/Category"
-import createApi from "../apis/createItem"
+import createApi from "../apis/itemCRUD"
 
 function CategoryListPage() {
   const [isCheck, setIsCheck] = useState(false)
