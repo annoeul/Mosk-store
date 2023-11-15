@@ -9,13 +9,13 @@ function ProductListPage() {
   }, [])
 
   return (
-    <div>
+    <>
       {selectedCategory && selectedCategory.products.length > 0 ? (
         selectedCategory.products.map((product) => <Product key={product.id} product={product} />)
       ) : (
         <div>등록된 상품이 없습니다.</div>
       )}
-    </div>
+    </>
   )
 }
 
