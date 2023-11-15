@@ -24,18 +24,15 @@ function Category({ storeId }) {
   }
 
   const handleCategoryClick = (categoryId) => {
-    // Dispatch the selectCategory action with the category ID
     dispatch(selectCategory({ id: categoryId }))
   }
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("Before fetching data:", categories)
         await dispatch(fetchCategories(1))
-        console.log("After fetching data:", categories)
       } catch (err) {
-        console.error("Error fetching data:", err)
+        console.error(err)
       }
     }
 
