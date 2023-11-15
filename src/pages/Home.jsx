@@ -4,11 +4,13 @@ import { Grid } from "@mui/material"
 
 import ProductListPage from "./ProductListPage"
 import CategoryListPage from "./CategoryListPage"
+import Modal from "../components/Modal"
 
 function Home() {
   return (
     <div>
       <Header />
+
       <Grid container>
         <Grid
           item
@@ -23,6 +25,8 @@ function Home() {
           <CategoryListPage />
         </Grid>
         <Grid item xs={10}>
+          <Modal />
+
           <ProductListPage />
         </Grid>
       </Grid>
