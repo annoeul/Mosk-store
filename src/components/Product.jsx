@@ -1,9 +1,29 @@
-import { Box, Button, Card, CardContent, CardMedia, Typography } from "@mui/material"
-import React from "react"
+/* eslint-disable react/prop-types */
+import React, { useState, useEffect } from "react"
+import { Button, Card, CardContent, CardMedia, Typography } from "@mui/material"
 import itemCRUD from "../apis/itemCRUD"
 
 function Product({ product }) {
-  const { name, price, description, id, encodedImg } = product
+  const { name, price, description, id } = product
+  const [imageURL, setImageURL] = useState(null)
+
+  useEffect(() => {
+    const fetchImageData = async () => {
+      try {
+        const response = await itemCRUD.get(`/public/products/img/${id}`)
+        const imageData = response.data.data
+
+        if (imageData.encodedImg && imageData.imgType) {
+          const dataURL = `data:image/${imageData.imgType};base64,${imageData.encodedImg}`
+          setImageURL(dataURL)
+        }
+      } catch (error) {
+        console.error("Error fetching image data:", error)
+      }
+    }
+
+    fetchImageData()
+  }, [product.productId])
 
   const handleDelete = () => {
     const isConfirmed = window.confirm(`정말로 "${name}" 상품을 삭제하시겠습니까?`)
@@ -23,7 +43,7 @@ function Product({ product }) {
 
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardMedia sx={{ height: 140 }} image="/static/images/cards/contemplative-reptile.jpg" />
+      {imageURL && <CardMedia sx={{ height: 200, objectFit: "cover" }} image={imageURL} />}
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           메뉴명: {name}

@@ -52,7 +52,7 @@ function Modal() {
   return (
     <div>
       <Button variant="contained" onClick={handleModal}>
-        Open Modal
+        상품생성
       </Button>
       <Dialog open={open} onClose={handleModal}>
         <DialogTitle>모달 제목</DialogTitle>
