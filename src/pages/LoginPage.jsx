@@ -80,17 +80,8 @@ export default function LoginPage() {
             id="password"
             autoComplete="current-password"
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            onClick={doLogin}
-            type="button"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
+          <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
+          <Button onClick={doLogin} type="button" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
             Sign In
           </Button>
           <Grid container>
