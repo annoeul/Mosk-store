@@ -1,4 +1,6 @@
+// Modal.js
 import React, { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import {
   Button,
   Dialog,
@@ -11,21 +13,22 @@ import {
   Select,
   MenuItem,
 } from "@mui/material"
-import { useSelector } from "react-redux"
+import { createProductAsync } from "../store/slice/productSlice"
 import useInput from "../hooks/useInput"
 
 function Modal() {
   const [open, setOpen] = useState(false)
-  const [selectCategoryId, setSelectCategoryId] = useState("") // 선택된 카테고리 ID를 상태로 관리
+  const [selectCategoryId, setSelectCategoryId] = useState("")
   const categories = useSelector((state) => state.categories.categories)
+  const dispatch = useDispatch()
 
   const handleModal = () => {
     setOpen(!open)
   }
 
   const handleCategoryChange = (selectedCategoryId) => {
-    setSelectCategoryId(selectedCategoryId) // 선택된 카테고리 ID를 업데이트
-    onChange({ target: { name: "categoryId", value: selectedCategoryId } }) // useInput의 onChange 함수를 호출하여 categoryId 업데이트
+    setSelectCategoryId(selectedCategoryId)
+    onChange({ target: { name: "categoryId", value: selectedCategoryId } })
   }
 
   const { userInput, onChange } = useInput({
@@ -36,7 +39,14 @@ function Modal() {
   })
 
   const createProduct = () => {
-    console.log(userInput)
+    const productData = {
+      name: userInput.name,
+      description: userInput.description,
+      price: userInput.price,
+      categoryId: userInput.categoryId,
+    }
+
+    dispatch(createProductAsync(productData))
   }
 
   return (
@@ -53,7 +63,7 @@ function Modal() {
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               label="Category"
-              value={selectCategoryId} // 선택된 값 설정
+              value={selectCategoryId}
               onChange={(e) => handleCategoryChange(e.target.value)}
             >
               {categories &&

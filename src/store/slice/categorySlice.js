@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import axios from "axios"
 import itemCRUD from "../../apis/itemCRUD"
 
 const initialState = {
