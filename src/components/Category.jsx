@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { deleteCategoryAsync, fetchCategories, selectCategory } from "../store/slice/categorySlice"
@@ -11,7 +12,7 @@ function Category({ storeId }) {
     const checkDelete = window.confirm("정말로 삭제하시겠습니까?")
     if (checkDelete) {
       try {
-        await dispatch(deleteCategoryAsync(categoryId))
+        dispatch(deleteCategoryAsync(categoryId))
       } catch (err) {
         if (err.response && err.response.status === 400) {
           alert(err.response.data.message)

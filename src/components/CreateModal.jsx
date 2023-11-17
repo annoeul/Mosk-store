@@ -51,7 +51,7 @@ function Modal() {
 
   return (
     <div>
-      <Button variant="contained" onClick={handleModal}>
+      <Button variant="contained" onClick={handleModal} sx={{ margin: "10px" }}>
         상품생성
       </Button>
       <Dialog open={open} onClose={handleModal}>
