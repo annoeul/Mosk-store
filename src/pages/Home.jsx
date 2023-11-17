@@ -4,7 +4,7 @@ import { Grid } from "@mui/material"
 
 import ProductListPage from "./ProductListPage"
 import CategoryListPage from "./CategoryListPage"
-import Modal from "../components/Modal"
+import CreateModal from "../components/CreateModal"
 
 function Home() {
   return (
@@ -17,7 +17,6 @@ function Home() {
           xs={2}
           sx={{
             borderRight: "1px solid black",
-
             textAlign: "center",
             height: "100vh",
           }}
@@ -25,8 +24,7 @@ function Home() {
           <CategoryListPage />
         </Grid>
         <Grid item xs={10}>
-          <Modal />
-
+          <CreateModal />
           <ProductListPage />
         </Grid>
       </Grid>
