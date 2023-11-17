@@ -1,11 +1,13 @@
-/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react"
-import { Button, Card, CardContent, CardMedia, Typography } from "@mui/material"
+import { Button, Card, CardContent, CardMedia, Typography, Grid } from "@mui/material"
 import itemCRUD from "../apis/itemCRUD"
+import { useDispatch } from "react-redux"
+import { deleteProductAsync } from "../store/slice/productSlice"
 
 function Product({ product }) {
   const { name, price, description, id } = product
   const [imageURL, setImageURL] = useState(null)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const fetchImageData = async () => {
@@ -25,39 +27,36 @@ function Product({ product }) {
     fetchImageData()
   }, [product.productId])
 
-  const handleDelete = () => {
+  const handleDelete = (productId) => {
     const isConfirmed = window.confirm(`정말로 "${name}" 상품을 삭제하시겠습니까?`)
     console.log(isConfirmed)
 
-    if (isConfirmed) {
-      itemCRUD
-        .delete(`/products/${id}`)
-        .then((response) => {
-          console.log("Product deleted successfully:", response)
-        })
-        .catch((error) => {
-          console.error("Error deleting product:", error)
-        })
-    }
+    if (isConfirmed) dispatch(deleteProductAsync(productId))
   }
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      {imageURL && <CardMedia sx={{ height: 200, objectFit: "cover" }} image={imageURL} />}
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          메뉴명: {name}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          설명: {description}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          가격: {price}
-        </Typography>
-      </CardContent>
-      <Button onClick={handleDelete}>삭제</Button>
-      <Button>수정</Button>
-    </Card>
+    <Grid container spacing={2}>
+      <Grid item>
+        {imageURL && <CardMedia sx={{ height: 200, width: 200, objectFit: "cover" }} image={imageURL} />}
+      </Grid>
+      <Grid item>
+        <Card sx={{ maxWidth: 345 }}>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              메뉴명: {name}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              설명: {description}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              가격: {price}
+            </Typography>
+          </CardContent>
+          <Button onClick={() => handleDelete(id)}>삭제</Button>
+          <Button>수정</Button>
+        </Card>
+      </Grid>
+    </Grid>
   )
 }
 
