@@ -6,17 +6,12 @@ import { useDispatch } from "react-redux"
 import { deleteProductAsync } from "../store/slice/productSlice"
 import Update from "./Update"
 
-function Product({ product }) {
+function Product({ product, category }) {
   const { name, price, description, id } = product
   const dispatch = useDispatch()
 
   const [imageURL, setImageURL] = useState(null)
   const [modalOpen, setModalOpen] = useState(false)
-  const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    price: "",
-  })
 
   useEffect(() => {
     const fetchImageData = async () => {
@@ -32,32 +27,19 @@ function Product({ product }) {
       }
     }
     fetchImageData()
-  }, [])
+  }, [id])
 
-  const handleDelete = (productId) => {
+  const handleDelete = () => {
     const isConfirmed = window.confirm(`정말로 "${name}" 상품을 삭제하시겠습니까?`)
-    if (isConfirmed) dispatch(deleteProductAsync(productId))
+    if (isConfirmed) dispatch(deleteProductAsync(id))
   }
 
   const handleUpdateClick = () => {
-    setFormData({
-      id,
-      name,
-      description,
-      price,
-    })
     setModalOpen(true)
   }
 
   const handleModalClose = () => {
     setModalOpen(false)
-  }
-
-  const handleFormChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
   }
 
   return (
@@ -78,13 +60,18 @@ function Product({ product }) {
               가격: {price}
             </Typography>
           </CardContent>
-          <Button onClick={() => handleDelete(id)}>삭제</Button>
+          <Button onClick={handleDelete}>삭제</Button>
           <Button onClick={handleUpdateClick}>수정</Button>
         </Card>
       </Box>
 
       {/* Render the Update modal */}
-      <Update open={modalOpen} handleModal={handleModalClose} formData={formData} handleFormChange={handleFormChange} />
+      <Update
+        categoryId={category}
+        open={modalOpen}
+        handleModal={handleModalClose}
+        formData={{ id, name, description, price }}
+      />
     </Box>
   )
 }

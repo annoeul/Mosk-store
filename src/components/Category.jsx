@@ -31,7 +31,7 @@ function Category({ storeId }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await dispatch(fetchCategories(1))
+        dispatch(fetchCategories(1))
       } catch (err) {
         console.error(err)
       }
