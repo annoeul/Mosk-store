@@ -29,21 +29,22 @@ function Category({ storeId }) {
   }
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        dispatch(fetchCategories(1))
-      } catch (err) {
-        console.error(err)
+    // 카테고리가 이미 로드되지 않았을 때만 카테고리를 가져옵니다.
+    if (categories.length === 0) {
+      const fetchData = async () => {
+        try {
+          dispatch(fetchCategories(1))
+        } catch (err) {
+          console.error(err)
+        }
       }
+      fetchData()
     }
 
-    fetchData()
-
-    // Automatically select the first category if none is selected
     if (!selectedCategory && categories.length > 0) {
       handleCategoryClick(categories[0].id)
     }
-  }, [dispatch, storeId, selectedCategory, categories])
+  }, [dispatch, selectedCategory, categories])
 
   return (
     <Stack>
