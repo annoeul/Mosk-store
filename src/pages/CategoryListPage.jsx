@@ -3,27 +3,22 @@ import Btn from "../components/Btn"
 import { Box, ButtonGroup, TextField } from "@mui/material"
 import Category from "../components/Category"
 import createApi from "../apis/itemCRUD"
+import { createCategoryAsync } from "../store/slice/categorySlice"
+import { useDispatch } from "react-redux"
 
 function CategoryListPage() {
   const [isCheck, setIsCheck] = useState(false)
   const [categoryName, setCategoryName] = useState("")
+  const dispatch = useDispatch()
 
   const onClick = () => {
     setIsCheck(!isCheck)
   }
-
   const createCategory = async () => {
     try {
-      const response = await createApi.post("/categories", categoryName)
-      const data = response.data
-      console.log(data)
+      dispatch(createCategoryAsync(categoryName))
     } catch (err) {
-      if (err.response && err.response.status === 400) {
-        alert(err.response.data.message)
-      } else {
-        console.error("API request error:", err)
-        throw new Error(err)
-      }
+      console.log(err)
     }
   }
 

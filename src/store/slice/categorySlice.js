@@ -13,6 +13,11 @@ export const fetchCategories = createAsyncThunk("categories/fetchCategories", as
   return response.data.data
 })
 
+export const createCategoryAsync = createAsyncThunk("categories/createCategory", async (categoryName) => {
+  const response = await itemCRUD.post("/categories", categoryName)
+  return response.data.data
+})
+
 export const deleteCategoryAsync = createAsyncThunk("categories/deleteCategory", async (categoryId) => {
   const response = await itemCRUD.delete(`/categories/${categoryId}`)
   return categoryId
@@ -38,6 +43,10 @@ const categorySlice = createSlice({
     builder.addCase(fetchCategories.rejected, (state, action) => {
       state.status = "failed"
       state.error = action.error.message ?? null
+    })
+    builder.addCase(createCategoryAsync.fulfilled, (state, action) => {
+      state.status = "success"
+      state.categories.push(action.payload)
     })
     builder.addCase(deleteCategoryAsync.fulfilled, (state, action) => {
       state.status = "success"
