@@ -6,7 +6,6 @@ import useInput from "../hooks/useInput"
 import { useSelector } from "react-redux"
 
 function Update({ open, handleModal, formData, categoryId }) {
-  const [isLoading, setIsLoading] = useState(false)
   const { userInput, onChange } = useInput({
     name: formData.name,
     description: formData.description,
@@ -16,8 +15,6 @@ function Update({ open, handleModal, formData, categoryId }) {
 
   const handleUpdate = async () => {
     try {
-      setIsLoading(true)
-
       await itemCRUD.put(`/products`, {
         productId: formData.id,
         name: userInput.name,
@@ -30,8 +27,6 @@ function Update({ open, handleModal, formData, categoryId }) {
       handleModal()
     } catch (error) {
       console.error("Error updating product:", error)
-    } finally {
-      setIsLoading(false)
     }
   }
 
@@ -54,8 +49,8 @@ function Update({ open, handleModal, formData, categoryId }) {
         <Button onClick={handleModal} color="primary">
           취소
         </Button>
-        <Button onClick={handleUpdate} color="primary" disabled={isLoading}>
-          {isLoading ? "수정 중..." : "수정"}
+        <Button onClick={handleUpdate} color="primary">
+          수정
         </Button>
       </DialogActions>
     </Dialog>
