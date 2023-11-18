@@ -18,7 +18,7 @@ function Home() {
           sx={{
             borderRight: "1px solid black",
             textAlign: "center",
-            height: "100vh",
+            // height: "100vh",
           }}
         >
           <CategoryListPage />
