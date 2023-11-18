@@ -6,7 +6,7 @@ import { Box, Button, Stack } from "@mui/material"
 
 function Category({ storeId }) {
   const dispatch = useDispatch()
-  const { categories } = useSelector((state) => state.categories)
+  const { categories, selectedCategory } = useSelector((state) => state.categories)
 
   const deleteCategory = async (categoryId) => {
     const checkDelete = window.confirm("정말로 삭제하시겠습니까?")
@@ -38,7 +38,12 @@ function Category({ storeId }) {
     }
 
     fetchData()
-  }, [dispatch, storeId])
+
+    // Automatically select the first category if none is selected
+    if (!selectedCategory && categories.length > 0) {
+      handleCategoryClick(categories[0].id)
+    }
+  }, [dispatch, storeId, selectedCategory, categories])
 
   return (
     <Stack>
