@@ -76,7 +76,7 @@ function Modal() {
         상품생성
       </Button>
       <Dialog open={open} onClose={handleModal}>
-        <DialogTitle>모달 제목</DialogTitle>
+        <DialogTitle>상품 등록</DialogTitle>
         <DialogContent>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Category</InputLabel>

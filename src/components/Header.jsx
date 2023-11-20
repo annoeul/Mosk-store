@@ -1,11 +1,4 @@
-import {
-  AppBar,
-  Box,
-  Button,
-  IconButton,
-  Toolbar,
-  Typography,
-} from "@mui/material"
+import { AppBar, Box, Button, IconButton, Toolbar, Typography } from "@mui/material"
 import React, { useEffect, useState } from "react"
 import api from "../apis/signUp"
 import { useNavigate } from "react-router-dom"
@@ -20,22 +13,6 @@ function Header() {
       setIsLogin(true)
     }
   }
-
-  // const logout = async () => {
-  //   try {
-  //     const response = await api.delete("/auth")
-  //     const getToken = localStorage.getItem("accessToken")
-  //     const checkLogout = window.confirm("로그아웃 하시겠습니까?")
-  //     if (checkLogout) {
-  //       localStorage.removeItem("accessToken")
-  //       navigate("/")
-  //     } else {
-  //       return
-  //     }
-  //   } catch (err) {
-  //     console.log(err)
-  //   }
-  // }
 
   useEffect(() => {
     checkLogin()

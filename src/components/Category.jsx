@@ -50,7 +50,7 @@ function Category({ storeId }) {
     <Stack>
       {categories.map((category) => (
         <Box
-          sx={{ borderBottom: ".1px solid black", margin: "10px 10px" }}
+          sx={{ borderBottom: ".1px dotted black", margin: "10px 10px" }}
           key={category.id}
           onClick={() => handleCategoryClick(category.id)}
         >

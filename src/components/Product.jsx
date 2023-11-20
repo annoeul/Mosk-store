@@ -1,6 +1,6 @@
 // Product.js
 import React, { useState, useEffect } from "react"
-import { Button, Card, CardContent, CardMedia, Typography, Box } from "@mui/material"
+import { Button, Card, CardContent, CardMedia, Typography, Box, Grid, Stack, Container } from "@mui/material"
 import itemCRUD from "../apis/itemCRUD"
 import { useDispatch } from "react-redux"
 import { deleteProductAsync } from "../store/slice/productSlice"
@@ -43,36 +43,38 @@ function Product({ product, category }) {
   }
 
   return (
-    <Box sx={{ margin: "10px", width: "300px" }}>
-      <Box sx={{ width: "150px", height: "150px" }}>
-        {imageURL && <CardMedia sx={{ height: "100%", width: "100%", objectFit: "cover" }} image={imageURL} />}
-      </Box>
-      <Box sx={{ display: "flex", flexDirection: "column", marginLeft: "10px" }}>
-        <Card sx={{ maxWidth: 260 }}>
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              메뉴명: {name}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              설명: {description}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              가격: {price}
-            </Typography>
-          </CardContent>
-          <Button onClick={handleDelete}>삭제</Button>
-          <Button onClick={handleUpdateClick}>수정</Button>
-        </Card>
-      </Box>
+    <Container sx={{ display: "flex", flexDirection: "column", margin: "10px" }}>
+      <Grid container spacing={2} alignItems="center">
+        <Box sx={{ width: "150px", height: "150px" }}>
+          {imageURL && <CardMedia sx={{ height: "100%", width: "100%", objectFit: "cover" }} image={imageURL} />}
+        </Box>
+        <Grid item xs={12} md={6}>
+          <Card sx={{ margin: "20px" }}>
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                메뉴명: {name}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                설명: {description}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                가격: {price}
+              </Typography>
+            </CardContent>
+            <Button onClick={handleDelete}>삭제</Button>
+            <Button onClick={handleUpdateClick}>수정</Button>
+          </Card>
+        </Grid>
 
-      {/* Render the Update modal */}
-      <Update
-        categoryId={category}
-        open={modalOpen}
-        handleModal={handleModalClose}
-        formData={{ id, name, description, price }}
-      />
-    </Box>
+        {/* Render the Update modal */}
+        <Update
+          categoryId={category}
+          open={modalOpen}
+          handleModal={handleModalClose}
+          formData={{ id, name, description, price }}
+        />
+      </Grid>
+    </Container>
   )
 }
 
